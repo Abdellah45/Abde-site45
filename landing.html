@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>landing page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.min.css">
+</head>
+<body class="load">
+    <div class="loading">
+        <span>loading</span>
+    </div>
+    <!-- start header & landing -->
+    <div class="header">
+        <div class="logo">
+            <img src="images/logo.png" alt="keep">
+        </div>
+        <span class="date"></span>
+        <div class="pers">
+            <span class="progress_baner"></span>
+        </div>
+    </div>
+    <div class="landing_body">
+       <div class="content">
+        <h1>Just Keep going</h1>
+        <p>my personal website to keep going with my live and my plans and my projects and to focus on productivity and also to save every day's informations and tasks that I did</p>
+        <div class="work-btn">
+            <a href="#workspace">Workspace</a>
+        </div>
+       </div>
+    </div>
+    <!-- end header & landing -->
+    <!-- start workspace -->
+    <div class="workspace" id="workspace">
+        <div class="container">
+            <div class="master_challenge">
+                <h2>___Master challenge___</h2>
+                <div class="progress_board">
+                    <div class="p_header">
+                        <h2>progress Board</h2>
+                    </div>
+                    <div class="p_content" data-day="">
+                        <div class="progress_box">
+                            <div class="fill" data-width=""></div>
+                        </div>
+                        <div class="done_btn" data-title=""></div>
+                    </div>
+                </div>
+                <div class="challenge_days">
+                    <div class="ch_header">
+                        <h2>challenge days</h2>
+                        <div class="search_box">
+                            <div class="search_btn">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <input type="search" data-target="duringChallenge" placeholder="Find...">
+                        </div>
+                    </div>
+                    <div class="ch_content">
+                        <div class="days_container">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <div class="container">
+            <div class="personal_diary">
+                <h2>___Personal diary___</h2>
+                <div class="diary_days">
+                    <div class="ch_header">
+                        <h2>Diary days</h2>
+                        <div class="search_box">
+                            <div class="search_btn">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <input type="search" data-target="offChallenge" placeholder="Find...">
+                        </div>
+                    </div>
+                    <div class="ch_content">
+                        <div class="days_container">
+                        </div>
+                    </div>
+                    <div class="add_btn">
+                        <div class="in_cont">+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end workspace -->
+    <script src="js/main.js"></script>
+</body>
+</html>
