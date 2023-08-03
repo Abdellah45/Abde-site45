@@ -126,104 +126,76 @@ setTimeout(()=>{
 
 
 // start progress board
-const doneBtn = document.querySelector(".done_btn");
-const theSpan = document.querySelector(".progress_box .fill");
-let unice = Math.floor(((new Date).getTime() + 3600000) / 86400000);
-if (localStorage.getItem("unic") !== null){
-    if (unice > localStorage.getItem("unic")){
-        if (localStorage.getItem("pers") < localStorage.getItem("ver")){
-            if(localStorage.getItem("pers")!== null){
-                localStorage.setItem("pers",parseInt(localStorage.getItem("pers")) + 1);
-            }else{
-                localStorage.setItem("pers",1);
-            }
-        }
-        localStorage.removeItem("check");
-        checkWid();
+
+// let unice = Math.floor(((new Date).getTime() + 3600000) / 86400000);
+
+const theSpan = document.querySelector(".done_btn");
+
+document.querySelector(".done_btn").onclick = function (){
+  this.classList.remove("done_btn");
+  this.classList.add("done_btn_clicked");
+  localStorage.setItem("miliSec",Math.floor(((new Date).getTime())/ 86400000) * 86400000);
+  this.dataset.title = "Reset";
+  defaultSett();
+  reset();
+}
+
+function reset(){
+  if (document.querySelector(".done_btn_clicked") !== null){
+    document.querySelector(".done_btn_clicked").onclick = function (){
+      this.classList.remove("done_btn_clicked");
+      this.classList.add("done_btn");
+      localStorage.removeItem("miliSec");
+      window.location.reload();
     }
+  }
 }
-if (localStorage.getItem("check") !== null){
-  document.querySelector(".done_btn").classList.add("done_btn_clicked");
-  document.querySelector(".done_btn").classList.remove("done_btn");
+if(localStorage.getItem("miliSec") !== null){
+  theSpan.classList.remove("done_btn");
+  theSpan.classList.add("done_btn_clicked");
+  theSpan.dataset.title = "Reset";
+}else{
+  theSpan.dataset.title = "Start Challenge";
 }
-checkWid();
+function autoProgress(num){
+  let dif = ((new Date).getTime() - num) / 77760000;
+  document.querySelector(".progress_box .fill").dataset.width = `${dif}`.substring(0,4) + "%";
+  document.querySelector(".progress_baner").innerHTML = `${dif}`.substring(0,4) + "%";
+  document.querySelector(".progress_box .fill").style.width = `${dif}%`;
+  document.querySelector(".progress_board .p_content").dataset.day = `${Math.floor(((new Date).getTime() - num) / 86400000)} day`;
+}
+function defaultSett(){
+  if (localStorage.getItem("miliSec") !== null && ((new Date).getTime() - parseInt(localStorage.getItem("miliSec"))) < 7776000000){
+    let funInt =  setInterval(()=>{
+      autoProgress(parseInt(localStorage.getItem("miliSec")));
+    },1000);
+  }if (parseInt(localStorage.getItem("miliSec")) >= 7776000000){
+    document.querySelector(".progress_box .fill").dataset.width = "100%";
+    document.querySelector(".progress_box .fill").style.width = "100%";
+    document.querySelector(".progress_baner").innerHTML = "100%";
+    document.querySelector(".progress_board .p_content").dataset.day = "90 day";
+  }else{
+    document.querySelector(".progress_box .fill").dataset.width = "0%";
+    document.querySelector(".progress_box .fill").style.width = "0%";
+    document.querySelector(".progress_baner").innerHTML = "0%";
+    document.querySelector(".progress_board .p_content").dataset.day = "0 day";
+  }
+}
+window.onload = function (){
+  reset();
+}
+
+
+defaultSett();
 let days = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"];
 let months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 document.querySelector(".date").innerHTML = `it's ${days[((new Date).getDay()) - 1]}, ${(new Date).getDate()} ${months[(new Date).getMonth()]}, ${(new Date).getFullYear()}`;
 
- function checkWid(){
-    if(localStorage.getItem("pers") !== null){
-        let dpers = `${(parseInt(localStorage.getItem("pers")) * (100/90))}`;
-        theSpan.dataset.width = dpers.substring(0,3) + "%";
-        document.querySelector(".progress_board .p_content").dataset.day = `Day ${localStorage.getItem("pers")}`;
-        document.querySelector(".progress_baner").innerHTML = dpers.substring(0,3) + "%";
-     }else{
-        theSpan.dataset.width = 0 + "%";
-        document.querySelector(".progress_board .p_content").dataset.day = `Day ${0}`;
-        document.querySelector(".progress_baner").innerHTML = 0 + "%";
-     }
- }
-
- window.onload = function (){
-    document.querySelector(".progress_box .fill").animate([
-        {width:0},
-        {width:theSpan.dataset.width}
-    ],1000)
- }
-
- theSpan.style.width = theSpan.dataset.width;
-
-
-
-
- doneBtn.onclick = function (){
-        if (this.classList.contains("done_btn_clicked") !== true){
-          document.querySelector(".done_btn").classList.add("done_btn_clicked");
-          document.querySelector(".done_btn").classList.remove("done_btn");
-                localStorage.setItem("check","");
-                if(localStorage.getItem("ver")!== null){
-                    localStorage.setItem("ver",parseInt(localStorage.getItem("ver")) + 1);
-                }else{
-                    localStorage.setItem("ver",1);
-                }
-                localStorage.setItem("unic",Math.floor(((new Date).getTime() + 3600000) / 86400000))
-            }
- }
-
-function timeSet(Mday){
-    let dMind = ((new Date).getTime() + 3600000);
-    let Deday = Math.floor(dMind / Mday);
-    let Neday = (dMind / Mday);
-    let ImpThing = Mday - ((Neday - Deday) * Mday);
-    let hous = Math.floor(ImpThing / 3600000);
-    let hou = hous.toString().length > 1 ? hous : `0${hous}`;
-    // Math.floor(ImpThing / 3600000);
-    let mins = Math.floor((ImpThing - (hous * 3600000)) / 60000);
-    let min = mins.toString().length > 1 ? mins : `0${mins}`;
-    let secs = Math.floor((ImpThing - ((mins * 60000) + (hous * 3600000))) / 1000);
-    let sec = secs.toString().length > 1 ? secs : `0${secs}`;
-    let StrDate = `${hou} : ${min} : ${sec}`;
-
-    if(document.querySelector(".done_btn_clicked") !== null){
-      document.querySelector(".done_btn_clicked").dataset.title = StrDate;
-    }else{
-      document.querySelector(".done_btn").dataset.title = "the day is safe";
-    }
-
-
-    let persHei =  (100 / Mday) * ImpThing;
-    
-    localStorage.getItem("check") !== null ? document.documentElement.style.setProperty("--safe-btn-clicked-before-height",`${persHei}%`) : 0;
-   
-    if(((Math.floor(dMind / 1000)) / 86400) === Deday){
-      window.location.reload();
-    }
-}
-
-setInterval(()=>{
-    timeSet(86400000);
-},1000);
+  
 // end progress board
+
+
+
 
 // start personal diary
 
