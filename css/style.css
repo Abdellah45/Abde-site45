@@ -566,11 +566,12 @@ body.load::before{
      @media (max-width:767px){
         .ch_header{
             padding: 10px;
-            height: 54px;
+            height: 55px;
         }
      }
       .ch_header h2{
         font-weight: 500;
+        padding: 15px 0;
      }
      @media (max-width:767px){
          .ch_header h2{
@@ -613,20 +614,21 @@ body.load::before{
         transition: .3s;
      }
      @media (max-width:767px){
-         .ch_header .search_box .search_btn{
-            transition: 0s;
+         .ch_header .search_box.clicked .search_btn{
+            transition: none;
         }
          .ch_header .search_box:hover .search_btn{
             border-radius: 5px;
-            transition: 0s;
+            transition: none;
          }
-          .ch_header .search_box input{
-            transition: 0s;
+          .ch_header .search_box.clicked input{
+            transition: none;
          }
           .ch_header .search_box:hover input{
             padding:0;
             width: 0;
             border: 0;
+            transition: none;
          }
           .ch_header{
             position:relative;
@@ -635,13 +637,14 @@ body.load::before{
             box-shadow: none;
             position:absolute;
             background-color: white;
+            width: 95%;
          }
           .ch_header .search_box.clicked .search_btn{
             border-radius: 5px 0 0 5px;
          }
           .ch_header .search_box.clicked input{
             padding:0 10px;
-            width: 240px;
+            width: 100%;
          }
 
      }
