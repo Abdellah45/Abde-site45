@@ -159,21 +159,30 @@ if(localStorage.getItem("miliSec") !== null){
 }
 function autoProgress(num){
   let dif = ((new Date).getTime() - num) / 77760000;
-  document.querySelector(".progress_box .fill").dataset.width = `${dif}`.substring(0,4) + "%";
-  document.querySelector(".progress_baner").innerHTML = `${dif}`.substring(0,4) + "%";
-  document.querySelector(".progress_box .fill").style.width = `${dif}%`;
-  document.querySelector(".progress_board .p_content").dataset.day = `${Math.floor(((new Date).getTime() - num) / 86400000)} day`;
+  if (((new Date).getTime() - num) >= 7776000000){
+    document.querySelector(".progress_box .fill").dataset.width = "100%";
+    document.querySelector(".progress_box .fill").style.width = "100%";
+    document.querySelector(".progress_baner").innerHTML = "100%";
+    document.querySelector(".progress_board .p_content").dataset.day = "90 day";
+    document.querySelector(".progress_box .fill").classList.add("ended");
+  }else{
+    document.querySelector(".progress_box .fill").dataset.width = `${dif}`.substring(0,4) + "%";
+    document.querySelector(".progress_baner").innerHTML = `${dif}`.substring(0,4) + "%";
+    document.querySelector(".progress_box .fill").style.width = `${dif}%`;
+    document.querySelector(".progress_board .p_content").dataset.day = `${Math.floor(((new Date).getTime() - num) / 86400000)} day`;
+  }
 }
 function defaultSett(){
   if (localStorage.getItem("miliSec") !== null && ((new Date).getTime() - parseInt(localStorage.getItem("miliSec"))) < 7776000000){
     let funInt =  setInterval(()=>{
       autoProgress(parseInt(localStorage.getItem("miliSec")));
     },1000);
-  }if (parseInt(localStorage.getItem("miliSec")) >= 7776000000){
+  }if (((new Date).getTime() - parseInt(localStorage.getItem("miliSec"))) >= 7776000000){
     document.querySelector(".progress_box .fill").dataset.width = "100%";
     document.querySelector(".progress_box .fill").style.width = "100%";
     document.querySelector(".progress_baner").innerHTML = "100%";
     document.querySelector(".progress_board .p_content").dataset.day = "90 day";
+    document.querySelector(".progress_box .fill").classList.add("ended");
   }else{
     document.querySelector(".progress_box .fill").dataset.width = "0%";
     document.querySelector(".progress_box .fill").style.width = "0%";
