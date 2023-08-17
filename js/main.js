@@ -493,5 +493,10 @@ noteGenerate();
    a.download = "info.json"
    a.click();
    const myRE = new Request("info.json");
-   fetch(myRE).then((response)=> response.json()).then((data) => {localStorage.setItem("dataObject",JSON.stringify(data))});
+   fetch(myRE).then((response) => response.json()).then((data) => { localStorage.setItem("dataObject",JSON.stringify(data)) });
  }
+ const myRE = new Request("info.json");
+ fetch(myRE).then((response) => response.json()).then((data) => { localStorage.setItem("dataObject",JSON.stringify(data)) });
+
+
+
